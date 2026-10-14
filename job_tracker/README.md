@@ -166,7 +166,7 @@ GitHub: [sachinyadav71428-lgtm](https://github.com/sachinyadav71428-lgtm)
 ## Screenshots
 
 ### Dashboard
-![Dashboard](screenshots/dashboard.png)
+![Dashboard](screenshots/Dashboard.png)
 
 ### Applications
 ![Applications 1](screenshots/applications1.png)
