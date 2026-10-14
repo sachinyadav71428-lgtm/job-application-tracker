@@ -163,6 +163,38 @@ http://127.0.0.1:5000/
 
 GitHub: [sachinyadav71428-lgtm](https://github.com/sachinyadav71428-lgtm)
 
+## Screenshots
+
+### Dashboard
+![Dashboard](screenshots/dashboard.png)
+
+### Applications
+![Applications 1](screenshots/applications1.png)
+
+![Applications 2](screenshots/applications2.png)
+
+![Applications 3](screenshots/applications3.png)
+
+### Companies
+![Companies 1](screenshots/companies1.png)
+
+![Companies 2](screenshots/companies2.png)
+
+![Companies 3](screenshots/companies3.png)
+
+### Contacts
+![Contact 1](screenshots/contact1.png)
+
+![Contact 2](screenshots/contact2.png)
+
+![Contact 3](screenshots/contact3.png)
+
+### Job Matching
+![Job Matching 1](screenshots/job-matching1.png)
+
+![Job Matching 2](screenshots/job-matching2.png)
+
+![Job Matching 3](screenshots/job-matching3.png)
 ---
 
 This project was developed as a practical application of Python web development, database management, and CRUD operations.
