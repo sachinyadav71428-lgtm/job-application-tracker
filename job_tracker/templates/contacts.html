@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="content-stack">
+    <div class="page-header">
+        <div>
+            <h1>Contacts</h1>
+            <p class="page-subtitle">Keep track of recruiters, hiring managers, and networking connections alongside the companies they belong to.</p>
+        </div>
+    </div>
+
+    <section class="section-card">
+        <form class="panel-form" action="{% if editing_contact %}/contacts/{{ editing_contact.contact_id }}/edit{% else %}/contacts{% endif %}" method="POST">
+            {% if error %}
+            <p class="alert alert-error">{{ error }}</p>
+            {% endif %}
+            
+            <h2>{% if editing_contact %}Edit Contact{% else %}Add Contact{% endif %}</h2>
+
+            <label for="company_id">Company</label>
+            <select name="company_id" id="company_id" required>
+                <option value="">Select a company</option>
+                {% for company in companies %}
+                <option value="{{ company.company_id }}" {% if form_data.company_id|int == company.company_id %}selected{% endif %}>
+                    {{ company.company_name }}
+                </option>
+                {% endfor %}
+            </select>
+
+            <label for="contact_name">Contact Name</label>
+            <input type="text" name="contact_name" id="contact_name" value="{{ form_data.contact_name }}" required>
+
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" value="{{ form_data.title }}">
+
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" value="{{ form_data.email }}">
+
+            <label for="phone">Phone Number</label>
+            <input type="tel" name="phone" id="phone" value="{{ form_data.phone }}">
+
+            <label for="linkedin_url">LinkedIn URL</label>
+            <input type="url" name="linkedin_url" id="linkedin_url" value="{{ form_data.linkedin_url }}">
+
+            <label for="notes">Notes</label>
+            <textarea name="notes" id="notes">{{ form_data.notes }}</textarea>
+
+            <div class="form-actions">
+                <button type="submit" {% if not companies %}disabled{% endif %}>
+                    {% if editing_contact %}Save Changes{% else %}Add Contact{% endif %}
+                </button>
+                {% if editing_contact %}
+                <a class="secondary-link" href="/contacts">Cancel</a>
+                {% endif %}
+            </div>
+
+            {% if not companies %}
+            <p class="alert alert-info">Add a company on the Companies page before creating contacts.</p>
+            {% endif %}
+        </form>
+    </section>
+
+    <section class="table-card">
+        <div class="table-card-header">
+            <h2>Contact List</h2>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Company</th>
+                        <th>Title</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>LinkedIn</th>
+                        <th>Notes</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for contact in contacts %}
+                    <tr>
+                        <td>{{ contact.contact_name }}</td>
+                        <td>{{ contact.company_name or 'Unknown company' }}</td>
+                        <td>{{ contact.title or 'Not set' }}</td>
+                        <td>
+                            {% if contact.email %}
+                            <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
+                            {% else %}
+                            Not provided
+                            {% endif %}
+                        </td>
+                        <td>{{ contact.phone or 'Not provided' }}</td>
+                        <td>
+                            {% if contact.linkedin_url %}
+                            <a href="{{ contact.linkedin_url }}" target="_blank">Profile</a>
+                            {% else %}
+                            Not provided
+                            {% endif %}
+                        </td>
+                        <td>{{ contact.notes or 'No notes yet' }}</td>
+                        <td class="table-actions">
+                            <a class="action-button edit-action" href="/contacts/{{ contact.contact_id }}/edit">Edit</a>
+                            <form action="/contacts/{{ contact.contact_id }}/delete" method="POST" class="inline-action-form" data-confirm-message="Delete {{ contact.contact_name }}? This cannot be undone.">
+                                <button type="submit" class="delete-action">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr class="empty-row">
+                        <td colspan="8">No contacts saved yet.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+{% endblock %}

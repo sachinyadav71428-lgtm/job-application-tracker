@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="content-stack">
+    <div class="page-header">
+        <div>
+            <h1>Welcome back</h1>
+            <p class="page-subtitle">Track your search in one place, from target companies to submitted applications and networking contacts.</p>
+        </div>
+    </div>
+
+    <div class="stats-grid">
+        <section class="stat-card">
+            <span class="stat-label">Total Applications</span>
+            <p class="stat-value">{{ stats.applications_count }}</p>
+        </section>
+        <section class="stat-card">
+            <span class="stat-label">Companies</span>
+            <p class="stat-value">{{ stats.companies_count }}</p>
+        </section>
+        <section class="stat-card">
+            <span class="stat-label">Saved Jobs</span>
+            <p class="stat-value">{{ stats.jobs_count }}</p>
+        </section>
+        <section class="stat-card">
+            <span class="stat-label">Contacts</span>
+            <p class="stat-value">{{ stats.contacts_count }}</p>
+        </section>
+    </div>
+
+    <section class="section-card">
+        <h2>Quick Actions</h2>
+        <p class="page-subtitle">Jump into the next step of your job search.</p>
+        <div class="quick-links">
+            <a class="quick-link" href="/jobs">
+                Add a job posting
+                <small>Save a role you want to pursue.</small>
+            </a>
+            <a class="quick-link" href="/applications">
+                Log an application
+                <small>Track what you have already submitted.</small>
+            </a>
+            <a class="quick-link" href="/job_match">
+                Run job match
+                <small>Compare your skills against saved jobs.</small>
+            </a>
+        </div>
+    </section>
+</div>
+{% endblock %}
