@@ -1,130 +1,168 @@
 # Job Application Tracker
 
-Job Application Tracker is a Flask + MySQL app for organizing a job search in one place. It helps you keep track of target companies, saved roles, submitted applications, networking contacts, and skill-to-job matches.
+A web-based job search management application built with **Python, Flask, and MySQL**. It helps users organize job applications, target companies, saved job postings, networking contacts, and skill-to-job matches in one place.
 
-## What It Does
+## Features
 
-- Shows a dashboard with application, company, job, and contact metrics plus quick links
-- Lets you add, edit, list, and delete companies
-- Lets you add, edit, list, and delete job postings
-- Lets you add, edit, list, and delete applications
-- Lets you add, edit, list, and delete contacts
-- Compares your skills against saved job requirements on the job match page
-- Prompts for confirmation before destructive deletes
-- Prevents deleting companies that still have jobs or contacts
-- Prevents deleting jobs that already have linked applications
+- **Dashboard:** View application, interview, offer, rejection, company, job, and contact statistics.
+- **Company Management:** Add, edit, view, and delete companies.
+- **Job Management:** Save and manage job postings linked to companies.
+- **Application Tracking:** Track applications through different recruitment stages.
+- **Contact Management:** Organize networking contacts associated with companies.
+- **Skill Matching:** Compare your skills with the requirements of saved jobs.
+- **Data Validation:** Prevent deletion of companies or jobs that still have linked records.
+- **Delete Confirmation:** Confirm destructive actions before proceeding.
 
 ## Tech Stack
 
-- Python
-- Flask
-- MySQL
-- HTML templates
-- CSS
-
-## Prerequisites
-
-- Python 3 with `pip`
-- A local MySQL server
-- The `mysql` command-line client for importing `schema.sql`
+- **Backend:** Python, Flask
+- **Database:** MySQL
+- **Frontend:** HTML, CSS, Jinja2 templates
+- **Tools:** Git, GitHub, PyCharm
 
 ## Project Structure
 
 ```text
-job_tracker/
-├── app.py
-├── database.py
-├── templates/
-│   ├── base.html
-│   ├── dashboard.html
-│   ├── companies.html
-│   ├── jobs.html
-│   ├── applications.html
-│   ├── contacts.html
-│   └── job_match.html
-├── static/
-│   └── style.css
-├── schema.sql
-├── AI_USAGE.md
-├── README.md
-└── requirements.txt
+job-application-tracker/
+├── job_tracker/
+│   ├── app.py
+│   ├── database.py
+│   ├── config.example.py
+│   ├── schema.sql
+│   ├── templates/
+│   └── static/
+├── requirements.txt
+└── README.md
 ```
 
-`config.py` is created locally from `config.example.py` during setup and is ignored by Git, so it is not part of the committed project structure.
+A local `config.py` file is created during setup and excluded from Git to help protect database credentials.
 
-## Setup
+## Prerequisites
 
-Run these steps from the `job_tracker` directory.
+Before running the project, install:
 
-1. Create and activate a virtual environment.
-2. Install dependencies:
+- Python 3
+- MySQL Server
+- Git (optional, for cloning the repository)
 
-   ```bash
-   pip install -r requirements.txt
-   ```
+## Installation and Setup
 
-   If you prefer to install from the repository root, use `pip install -r ../requirements.txt` instead.
+### 1. Clone the repository
 
-3. Create the MySQL database:
+```bash
+git clone https://github.com/sachinyadav71428-lgtm/job-application-tracker.git
+cd job-application-tracker
+```
 
-   ```sql
-   CREATE DATABASE job_tracker;
-   ```
+### 2. Create a virtual environment
 
-4. Load the final populated database dump:
+On Windows:
 
-   ```bash
-   mysql -u root -p job_tracker < schema.sql
-   ```
+```powershell
+python -m venv .venv
+```
 
-   `schema.sql` is the MySQL dump for the completed project database. Importing it recreates the tables and loads the saved records used by the app.
+Activate it in the PyCharm terminal:
 
-5. Create a local database config file:
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
 
-   ```bash
-   cp config.example.py config.py
-   ```
+If PowerShell blocks script execution, use Command Prompt instead:
 
-6. Edit `config.py` and set your local MySQL credentials:
+```cmd
+.venv\Scripts\activate.bat
+```
 
-   ```python
-   DB_HOST = '127.0.0.1'
-   DB_USER = 'root'
-   DB_PASSWORD = 'your_password_here'
-   DB_NAME = 'job_tracker'
-   DB_PORT = 3306
-   ```
+### 3. Install dependencies
 
-   `config.py` is ignored by Git so your real password is not committed. For course submission, provide the password separately in Canvas as instructed by your professor.
+From the repository root, run:
 
-7. Start the app:
+```bash
+python -m pip install -r requirements.txt
+```
 
-   ```bash
-   python3 app.py
-   ```
+### 4. Create the database
 
-8. Open `http://127.0.0.1:5000`.
+Open MySQL Workbench or your MySQL command-line client and execute:
+
+```sql
+CREATE DATABASE job_tracker;
+```
+
+### 5. Import the database schema
+
+Open the `job_tracker` directory in your terminal.
+
+Import the provided SQL file into the database. With the MySQL command-line client in Windows Command Prompt, run:
+
+```cmd
+mysql -u root -p job_tracker < schema.sql
+```
+
+Enter your MySQL password when prompted.
+
+The SQL file includes the project's database structure and sample records. Review the file before importing it into any database containing important data.
+
+### 6. Configure the database connection
+
+From the `job_tracker` directory, create your local configuration file:
+
+```powershell
+Copy-Item config.example.py config.py
+```
+
+Open `config.py` and enter your own local MySQL connection details using the variable names already defined in `config.example.py`.
+
+**Security note:** Never commit your real database password or other secrets to GitHub.
+
+### 7. Run the application
+
+From the `job_tracker` directory, run:
+
+```bash
+python app.py
+```
+
+### 8. Open the application
+
+Visit:
+
+http://127.0.0.1:5000/
 
 ## Main Pages
 
-- `/` dashboard
-- `/companies` company directory
-- `/jobs` saved job postings
-- `/applications` application tracker
-- `/contacts` contact manager
-- `/job_match` skill match tool
+| Route | Description |
+|---|---|
+| `/` | Dashboard and statistics |
+| `/companies` | Company directory |
+| `/jobs` | Saved job postings |
+| `/applications` | Job application tracker |
+| `/contacts` | Networking contact manager |
+| `/job_match` | Skill-to-job matching |
 
-## Data Notes
+## Database Relationships
 
-- Job requirements are entered as comma-separated skills in the UI and stored as JSON in the `jobs.requirements` column.
-- Interview notes are stored in the `applications.interview_data` JSON column.
-- Jobs must belong to an existing company.
-- Applications must belong to an existing job.
-- Contacts must belong to an existing company.
-- `schema.sql` contains both the schema and populated sample data from the final project database.
-- The schema reflects the MySQL dump currently used by the app, including legacy columns such as `jobs.posting_url` and `contacts.first_name` / `contacts.last_name`.
+- A job belongs to a company.
+- An application belongs to a job.
+- A contact belongs to a company.
+- Job requirements are stored as JSON.
+- Interview information is stored in the application's interview data field.
 
-## Development Notes
+## Future Improvements
 
-- The app runs with Flask's built-in development server from `app.py`.
-- The current entry point starts Flask with `debug=True`.
+- User registration and authentication
+- Search, filtering, and sorting
+- Application deadline reminders
+- Data visualization and progress charts
+- Deployment to a cloud hosting platform
+
+## Author
+
+**Sachin Kumar Yadav**
+
+GitHub: [sachinyadav71428-lgtm](https://github.com/sachinyadav71428-lgtm)
+
+---
+
+This project was developed as a practical application of Python web development, database management, and CRUD operations.
