@@ -530,6 +530,8 @@ def load_company(cursor, company_id):
     return cursor.fetchone()
 
 
+
+
 def load_dashboard_stats(cursor):
     cursor.execute(
         '''
@@ -537,10 +539,21 @@ def load_dashboard_stats(cursor):
             (SELECT COUNT(*) FROM applications) AS applications_count,
             (SELECT COUNT(*) FROM companies) AS companies_count,
             (SELECT COUNT(*) FROM jobs) AS jobs_count,
-            (SELECT COUNT(*) FROM contacts) AS contacts_count
+            (SELECT COUNT(*) FROM contacts) AS contacts_count,
+            (SELECT COUNT(*) FROM applications
+             WHERE status IN ('Interview', 'Interview Scheduled'))
+                AS interviews_count,
+            (SELECT COUNT(*) FROM applications
+             WHERE status IN ('Offer', 'Offer Received'))
+                AS offers_count,
+            (SELECT COUNT(*) FROM applications
+             WHERE status = 'Rejected')
+                AS rejections_count
         '''
     )
     return cursor.fetchone()
+
+
 
 
 @app.route('/')
