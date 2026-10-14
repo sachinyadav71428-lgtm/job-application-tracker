@@ -121,24 +121,16 @@ Run these steps from the repository root unless noted otherwise.
 
 ### Applications
 ![Applications](job_tracker/screenshots/applications1.png)
-![Applications Details](job_tracker/screenshots/applications2.png)
-![Application Management](job_tracker/screenshots/applications3.png)
 
 ### Companies
 ![Companies](job_tracker/screenshots/companies1.png)
-![Company Details](job_tracker/screenshots/companies2.png)
-![Company Management](job_tracker/screenshots/companies3.png)
 
 ### Contacts
 ![Contacts](job_tracker/screenshots/contact1.png)
-![Contact Details](job_tracker/screenshots/contact2.png)
-![Contact Management](job_tracker/screenshots/contact3.png)
 
 ### Job Matching
 ![Job Matching](job_tracker/screenshots/job-matching1.png)
-![Job Match Results](job_tracker/screenshots/job-matching2.png)
-![Job Match Details](job_tracker/screenshots/job-matching3.png)
-![Job Match Details](job_tracker/screenshots/job-matching3.png)
+
 
 
 
